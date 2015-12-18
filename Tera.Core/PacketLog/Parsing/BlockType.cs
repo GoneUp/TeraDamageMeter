@@ -3,7 +3,7 @@
 
 namespace Tera.PacketLog
 {
-    internal enum BlockType : byte
+    public enum BlockType : byte
     {
         MagicBytes = 1,
         Start = 2,

@@ -4,7 +4,7 @@ using System;
 
 namespace Tera.Sniffing.Crypt
 {
-    internal class Session
+    public class Session
     {
         protected Cryptor Encryptor;
         protected Cryptor Decryptor;

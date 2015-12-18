@@ -4,7 +4,7 @@ using System;
 
 namespace Tera.Sniffing.Crypt
 {
-    internal class Cryptor
+    public class Cryptor
     {
         private int ChangeData;
         private int ChangeLen;
