@@ -20,17 +20,35 @@ namespace Tera.Sniffing.Crypt
         public byte[] TmpKey1 = new byte[128];
         public byte[] TmpKey2 = new byte[128];
 
-        public void Init()
+        public void Init(String mode = "new")
         {
-            TmpKey1 = Utils.ShiftKey(ServerKey1, 31);
+            if (mode == "new") {
+                TmpKey1 = Utils.ShiftKey(ServerKey1, 67);
+            } else {
+                TmpKey1 = Utils.ShiftKey(ServerKey1, 31);
+            }
             TmpKey2 = Utils.XorKey(TmpKey1, ClientKey1);
 
-            TmpKey1 = Utils.ShiftKey(ClientKey2, 17, false);
+            if (mode == "new")
+            {
+                TmpKey1 = Utils.ShiftKey(ClientKey2, 29, false);
+            }
+            else
+            {
+                TmpKey1 = Utils.ShiftKey(ClientKey2, 17, false);
+            }
             DecryptKey = Utils.XorKey(TmpKey1, TmpKey2);
-
             Decryptor = new Cryptor(DecryptKey);
 
-            TmpKey1 = Utils.ShiftKey(ServerKey2, 79);
+            if (mode == "new")
+            {
+                TmpKey1 = Utils.ShiftKey(ServerKey2, 41);
+            }
+            else
+            {
+                TmpKey1 = Utils.ShiftKey(ServerKey2, 79);
+            }
+            
             Decryptor.ApplyCryptor(TmpKey1, 128);
             EncryptKey = new byte[128];
             Buffer.BlockCopy(TmpKey1, 0, EncryptKey, 0, 128);
